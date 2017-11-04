@@ -1,14 +1,18 @@
 class EventsController < ApplicationController
   def index
+    @events=Event.all? { |e|  }
   end
   def new
+
             @event=Event.new
   end
+
   def show
-            @show = Show.find(params[:id])
+         @event =Event.find(params[:id])
   end
-  def edit
-    @user = Event.new(user_params)
+
+  def create
+    @event = Event.new(user_params)
     if @event.save
       log_in @event
       redirect_to @event
@@ -16,7 +20,7 @@ class EventsController < ApplicationController
         render 'new'
     end
   end
-   def user_params
+   def event_params
     params.require(:event).permit(:date, :description, :space)
 end
 end
